@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:flutter_app2/login/components/LoginBody.dart';
+import 'package:flutter_app2/modules/login/components/LoginBody.dart';
 
 class LoginPage extends StatelessWidget {
   @override

@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import 'package:flutter_app2/forgot-password/ForgotPassword.dart';
-import 'package:flutter_app2/register/Register.dart';
-import 'package:flutter_app2/dashboard/Dashboard.dart';
+import 'package:flutter_app2/modules/forgot-password/ForgotPassword.dart';
+import 'package:flutter_app2/modules/register/Register.dart';
+import 'package:flutter_app2/modules/dashboard/Dashboard.dart';
 
 class LoginBody extends StatefulWidget {
   @override
@@ -23,7 +23,6 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       child: FormBuilder(
         key: globalFormKey,
@@ -188,85 +187,85 @@ class _LoginBodyState extends State<LoginBody> {
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              'Atau',
-              style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: size.width / 2 - 20,
-                  child: Material(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(10.0),
-                      highlightColor: Colors.black12,
-                      child: Container(
-                        height: 70,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black54),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icon/google.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            SizedBox(width: 15),
-                            Text(
-                              'Google',
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                  ),
-                ),
-                Container(
-                  width: size.width / 2 - 20,
-                  child: Material(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(10.0),
-                      highlightColor: Colors.black12,
-                      child: Container(
-                        height: 70,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black54),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icon/facebook.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            SizedBox(width: 15),
-                            Text(
-                              'Facebook',
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                      ),
-                      onTap: () {},
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
+            // Text(
+            //   'Atau',
+            //   style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+            // ),
+            // SizedBox(height: 10),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Container(
+            //       width: size.width / 2 - 20,
+            //       child: Material(
+            //         color: Colors.transparent,
+            //         borderRadius: BorderRadius.circular(10.0),
+            //         child: InkWell(
+            //           borderRadius: BorderRadius.circular(10.0),
+            //           highlightColor: Colors.black12,
+            //           child: Container(
+            //             height: 70,
+            //             padding: EdgeInsets.all(10),
+            //             decoration: BoxDecoration(
+            //               border: Border.all(color: Colors.black54),
+            //               borderRadius: BorderRadius.circular(10.0),
+            //             ),
+            //             child: Row(
+            //               children: [
+            //                 Image.asset(
+            //                   'assets/icon/google.png',
+            //                   width: 60,
+            //                   height: 60,
+            //                 ),
+            //                 SizedBox(width: 15),
+            //                 Text(
+            //                   'Google',
+            //                   textAlign: TextAlign.left,
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           onTap: () {},
+            //         ),
+            //       ),
+            //     ),
+            //     Container(
+            //       width: size.width / 2 - 20,
+            //       child: Material(
+            //         color: Colors.transparent,
+            //         borderRadius: BorderRadius.circular(10.0),
+            //         child: InkWell(
+            //           borderRadius: BorderRadius.circular(10.0),
+            //           highlightColor: Colors.black12,
+            //           child: Container(
+            //             height: 70,
+            //             padding: EdgeInsets.all(10),
+            //             decoration: BoxDecoration(
+            //               border: Border.all(color: Colors.black54),
+            //               borderRadius: BorderRadius.circular(10.0),
+            //             ),
+            //             child: Row(
+            //               children: [
+            //                 Image.asset(
+            //                   'assets/icon/facebook.png',
+            //                   width: 60,
+            //                   height: 60,
+            //                 ),
+            //                 SizedBox(width: 15),
+            //                 Text(
+            //                   'Facebook',
+            //                   textAlign: TextAlign.left,
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           onTap: () {},
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

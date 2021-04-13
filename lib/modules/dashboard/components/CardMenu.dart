@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:flutter_app2/modules/cek-investasi/CekInvestasi.dart';
+import 'package:flutter_app2/modules/hitung-bungamu/HitungBungamu.dart';
+import 'package:flutter_app2/modules/yuk-nabung/YukNabung.dart';
 import 'package:flutter_app2/widgets/category_dart.dart';
-import 'package:flutter_app2/scenes/cekinvestasi.dart';
 
 class CardMenu extends StatelessWidget {
   @override
@@ -19,12 +21,18 @@ class CardMenu extends StatelessWidget {
             svgSrc: "assets/icon/investasi.png",
             height: 100.0,
             width: 100.0,
+            press: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => YukNabung()));
+            },
           ),
           CategoryCard(
             title: "Hitung Bunga",
             svgSrc: "assets/icon/profit.png",
             height: 100.0,
             width: 100.0,
+            press: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HitungBungamu()));
+            },
           ),
           CategoryCard(
             title: "Cek Tempat Investasimu",
@@ -32,10 +40,7 @@ class CardMenu extends StatelessWidget {
             width: 100.0,
             svgSrc: "assets/icon/search.png",
             press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => cekinvestasi()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CekInvestasi()));
             },
           ),
           CategoryCard(
