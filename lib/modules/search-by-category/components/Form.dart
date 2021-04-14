@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class FormHitungBunga extends StatefulWidget {
+class FormSearchByCategory extends StatefulWidget {
   @override
-  _FormHitungBungaState createState() => _FormHitungBungaState();
+  _FormSearchByCategoryState createState() => _FormSearchByCategoryState();
 }
 
-class _FormHitungBungaState extends State<FormHitungBunga> {
-  GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  TextEditingController nominalController = MoneyMaskedTextController();
-  TextEditingController bungaController = TextEditingController();
-  TextEditingController durasiController = TextEditingController();
+class _FormSearchByCategoryState extends State<FormSearchByCategory> {
+  final GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
+  final TextEditingController minDepositController = MoneyMaskedTextController();
+  final TextEditingController kisaranBungaController = TextEditingController();
+  final TextEditingController golBukuController = TextEditingController();
 
   bool _isLoading = false;
 
@@ -28,15 +28,15 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Masukkan Nominal :',
+              'Minimal Deposito :',
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'nominal',
+              attribute: 'min deposit',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
-              controller: nominalController,
+              controller: minDepositController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -55,22 +55,18 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
-              validators: [
-                FormBuilderValidators.required(errorText: 'harus terisi'),
-                FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
-              ],
             ),
             SizedBox(height: 15),
             Text(
-              'Bunga :',
+              'Kisaran Bunga :',
               style: TextStyle(fontSize: 17),
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'bunga',
+              attribute: 'kisaran bunga',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
-              controller: bungaController,
+              controller: kisaranBungaController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -89,19 +85,18 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
-              validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
             ),
             SizedBox(height: 15),
             Text(
-              'Lama Hari :',
+              'Golongan Buku :',
               style: TextStyle(fontSize: 17),
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'durasi',
+              attribute: 'gol buku',
               textInputAction: TextInputAction.send,
               keyboardType: TextInputType.number,
-              controller: durasiController,
+              controller: golBukuController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -119,10 +114,6 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
-              validators: [
-                FormBuilderValidators.required(errorText: 'harus terisi'),
-                FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
-              ],
             ),
             SizedBox(height: 20),
             Container(
@@ -159,7 +150,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                               textAlign: TextAlign.center,
                             )
                           : Text(
-                              "Hitung",
+                              "Cari",
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -171,11 +162,18 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                   onTap: () async {
                     if (!_isLoading) {
-                      if (validateAndSave()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                      }
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      if (!validateAndSave()) {
+                        Fluttertoast.showToast(
+                          msg: 'Setidaknya isi salah satu kolom',
+                          backgroundColor: Colors.red,
+                        );
+                      } else {}
+                      setState(() {
+                        _isLoading = false;
+                      });
                     }
                   },
                 ),
@@ -188,12 +186,10 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
   }
 
   bool validateAndSave() {
-    final form = globalFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
+    print(minDepositController.text);
+    if (minDepositController.text.isEmpty && kisaranBungaController.text.isEmpty && golBukuController.text.isEmpty) {
       return false;
     }
+    return true;
   }
 }

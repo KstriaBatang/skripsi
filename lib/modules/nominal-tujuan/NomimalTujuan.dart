@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter_app2/modules/dashboard/components/BottomNavigation.dart';
-import 'package:flutter_app2/modules/hitung-bungamu/components/form.dart';
+import 'package:flutter_app2/modules/nominal-tujuan/components/CardMenu.dart';
 
-class HitungBungamuPage extends StatelessWidget {
+class NomimalTujuanPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -39,7 +39,7 @@ class HitungBungamuPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Hitung \nBungamu",
+                          "Nominal Tujuan \nRp. 1.000.000.000",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 30,
@@ -51,12 +51,12 @@ class HitungBungamuPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset('assets/icon/profit.png'),
+                          child: Image.asset('assets/icon/investasi.png'),
                         ),
                       ],
                     ),
                   ),
-                  FormHitungBunga(),
+                  CardMenuNominalTujuan(),
                 ],
               ),
             ),

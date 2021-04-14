@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app2/modules/dashboard/components/BottomNavigation.dart';
 import 'package:flutter_app2/modules/yuk-nabung/components/Form.dart';
 
-class YukNabung extends StatelessWidget {
+class YukNabungPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

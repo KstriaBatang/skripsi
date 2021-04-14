@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app2/modules/nominal-tujuan/NomimalTujuan.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 
 class FormYukNabung extends StatefulWidget {
   @override
@@ -12,10 +13,8 @@ class FormYukNabung extends StatefulWidget {
 
 class _ForHYukNabungState extends State<FormYukNabung> {
   final GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  final TextEditingController nominalController = TextEditingController();
+  final TextEditingController nominalController = MoneyMaskedTextController();
   final TextEditingController pendapatanBersihController = TextEditingController();
-
-  String _formatNumber(String s) => NumberFormat.decimalPattern('ID').format(int.parse(s));
 
   bool _isLoading = false;
 
@@ -57,13 +56,6 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                   ),
                 ),
               ),
-              onChanged: (string) {
-                string = '${_formatNumber(string.replaceAll(',', ''))}';
-                nominalController.value = TextEditingValue(
-                  text: string,
-                  selection: TextSelection.collapsed(offset: string.length),
-                );
-              },
               validators: [
                 FormBuilderValidators.required(errorText: 'harus terisi'),
                 FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
@@ -98,13 +90,6 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                   ),
                 ),
               ),
-              onChanged: (string) {
-                string = '${_formatNumber(string.replaceAll(',', ''))}';
-                pendapatanBersihController.value = TextEditingValue(
-                  text: string,
-                  selection: TextSelection.collapsed(offset: string.length),
-                );
-              },
               validators: [
                 FormBuilderValidators.required(errorText: 'harus terisi'),
                 FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
@@ -161,7 +146,7 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                         setState(() {
                           _isLoading = true;
                         });
-                        Fluttertoast.showToast(msg: 'Berhasil masuk.');
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx) => NomimalTujuanPage()));
                       }
                     }
                   },

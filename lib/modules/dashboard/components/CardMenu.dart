@@ -22,7 +22,7 @@ class CardMenu extends StatelessWidget {
             height: 100.0,
             width: 100.0,
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => YukNabung()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => YukNabungPage()));
             },
           ),
           CategoryCard(
@@ -31,7 +31,7 @@ class CardMenu extends StatelessWidget {
             height: 100.0,
             width: 100.0,
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => HitungBungamu()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => HitungBungamuPage()));
             },
           ),
           CategoryCard(
@@ -40,7 +40,7 @@ class CardMenu extends StatelessWidget {
             width: 100.0,
             svgSrc: "assets/icon/search.png",
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CekInvestasi()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CekInvestasiPage()));
             },
           ),
           CategoryCard(

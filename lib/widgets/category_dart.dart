@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 class CategoryCard extends StatelessWidget {
   final String svgSrc;
   final String title;
   final Function press;
   final double width;
   final double height;
+  
   const CategoryCard({
     Key key,
     this.svgSrc,

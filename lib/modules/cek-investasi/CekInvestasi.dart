@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app2/modules/dashboard/components/BottomNavigation.dart';
 import 'package:flutter_app2/modules/cek-investasi/components/CardMenu.dart';
 
-class CekInvestasi extends StatelessWidget {
+class CekInvestasiPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
