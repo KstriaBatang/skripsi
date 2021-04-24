@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import 'package:flutter_app2/utils/ThousandSeparator.dart';
+import 'package:flutter_app2/modules/search-by-category/List.dart';
 
 class FormSearchByCategory extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class FormSearchByCategory extends StatefulWidget {
 
 class _FormSearchByCategoryState extends State<FormSearchByCategory> {
   final GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  final TextEditingController minDepositController = MoneyMaskedTextController();
+  final TextEditingController minDepositController = TextEditingController();
   final TextEditingController kisaranBungaController = TextEditingController();
   final TextEditingController golBukuController = TextEditingController();
 
@@ -55,6 +57,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
                   ),
                 ),
               ),
+              inputFormatters: [ThousandSeparator()],
             ),
             SizedBox(height: 15),
             Text(
@@ -170,7 +173,18 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
                           msg: 'Setidaknya isi salah satu kolom',
                           backgroundColor: Colors.red,
                         );
-                      } else {}
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (ctx) => ListSearch(
+                              bunga: kisaranBungaController.text,
+                              golBuku: golBukuController.text,
+                              minDeposit: minDepositController.text,
+                            ),
+                          ),
+                        );
+                      }
                       setState(() {
                         _isLoading = false;
                       });
@@ -186,7 +200,6 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
   }
 
   bool validateAndSave() {
-    print(minDepositController.text);
     if (minDepositController.text.isEmpty && kisaranBungaController.text.isEmpty && golBukuController.text.isEmpty) {
       return false;
     }

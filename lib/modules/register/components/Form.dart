@@ -4,8 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
-import 'package:flutter_app2/widgets/enums.dart';
+import 'package:flutter_app2/providers/auth.dart';
+import 'package:flutter_app2/utils/HttpException.dart';
+import 'package:flutter_app2/utils/enums.dart';
 
 class FormRegister extends StatefulWidget {
   @override
@@ -55,7 +58,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 FormBuilderTextField(
                   attribute: 'first name',
                   textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
+                  textCapitalization: TextCapitalization.words,
                   controller: firstNameController,
                   maxLength: 12,
                   decoration: InputDecoration(
@@ -86,7 +89,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 FormBuilderTextField(
                   attribute: 'last name',
                   textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
+                  textCapitalization: TextCapitalization.words,
                   controller: lastNameController,
                   maxLength: 12,
                   decoration: InputDecoration(
@@ -157,7 +160,6 @@ class _ForHRegisterState extends State<FormRegister> {
                 FormBuilderTextField(
                   attribute: 'status pekerjaan',
                   textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
                   controller: statusPekerjaanController,
                   maxLength: 50,
                   decoration: InputDecoration(
@@ -318,6 +320,18 @@ class _ForHRegisterState extends State<FormRegister> {
                   validators: [
                     FormBuilderValidators.required(errorText: 'harus terisi'),
                     FormBuilderValidators.minLength(6, errorText: 'minimal 6 karakter'),
+                    (value) {
+                      Pattern patternSmallChar = r'([a-z])';
+                      Pattern patternCapitalChar = r'([A-Z])';
+                      Pattern patternNumber = r'([0-9])';
+
+                      if (value.isEmpty) return "Password tidak boleh kosong";
+                      if (value.length < 6) return "Password harus memiliki 6 karakter minimal";
+                      if (!new RegExp(patternSmallChar).hasMatch(value)) return "Password harus memiliki 1 huruf kecil";
+                      if (!new RegExp(patternCapitalChar).hasMatch(value)) return "Password harus memiliki 1 huruf besar";
+                      if (!new RegExp(patternNumber).hasMatch(value)) return "Password harus memiliki 1 angka";
+                      return null;
+                    }
                   ],
                 ),
                 SizedBox(height: 15),
@@ -410,13 +424,43 @@ class _ForHRegisterState extends State<FormRegister> {
                         ),
                       ),
                       onTap: () async {
-                        if (!_isLoading) {
-                          if (validateAndSave()) {
-                            setState(() {
-                              _isLoading = true;
-                            });
-                            Fluttertoast.showToast(msg: 'Berhasil Mendaftar. Silakan Login.');
+                        if (validateAndSave()) {
+                          setState(() => _isLoading = true);
+
+                          try {
+                            await Provider.of<AuthProvider>(
+                              context,
+                              listen: false,
+                            ).register(
+                              firstNameController.text,
+                              lastNameController.text,
+                              _birthDate,
+                              _jenisKelamin,
+                              noHpController.text,
+                              statusPekerjaanController.text,
+                              emailController.text,
+                              passwordController.text,
+                              passwordConfirmationController.text,
+                            );
+                            Navigator.of(context).pop();
+                            Fluttertoast.showToast(msg: 'Berhasil daftar. Silakan Login');
+                          } on HttpException catch (err) {
+                            setState(() => _isLoading = false);
+                            Fluttertoast.showToast(
+                              msg: err.toString(),
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                            );
+                          } catch (err) {
+                            setState(() => _isLoading = false);
+                            Fluttertoast.showToast(
+                              msg: 'Gagal melakukan pendaftaran. Silakan coba lagi.',
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                            );
                           }
+                        } else {
+                          setState(() => _isLoading = false);
                         }
                       },
                     ),

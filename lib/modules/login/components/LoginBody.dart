@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
 
+import 'package:flutter_app2/providers/auth.dart';
+import 'package:flutter_app2/utils/HttpException.dart';
 import 'package:flutter_app2/modules/forgot-password/ForgotPassword.dart';
 import 'package:flutter_app2/modules/register/Register.dart';
 import 'package:flutter_app2/modules/dashboard/Dashboard.dart';
@@ -18,7 +21,7 @@ class _LoginBodyState extends State<LoginBody> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  bool _passVisible = false;
+  bool _passVisible = true;
   bool _isLoading = false;
 
   @override
@@ -138,17 +141,32 @@ class _LoginBodyState extends State<LoginBody> {
                   ),
                   onTap: () async {
                     if (!_isLoading) {
+                      setState(() => _isLoading = true);
+
                       if (validateAndSave()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        Fluttertoast.showToast(msg: 'Berhasil masuk.');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (ctx) => DashboardPage(),
-                          ),
-                        );
+                        try {
+                          await Provider.of<AuthProvider>(context, listen: false).login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                          Fluttertoast.showToast(msg: 'Berhasil masuk.');
+                        } on HttpException catch (err) {
+                          setState(() => _isLoading = false);
+                          Fluttertoast.showToast(
+                            msg: err.toString(),
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                          );
+                        } catch (err) {
+                          setState(() => _isLoading = false);
+                          Fluttertoast.showToast(
+                            msg: err.toString(),
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                          );
+                        }
+                      } else {
+                        setState(() => _isLoading = false);
                       }
                     }
                   },
@@ -200,7 +218,7 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (ctx) => ForgotPasswordPage(),

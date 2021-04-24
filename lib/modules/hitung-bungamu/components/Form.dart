@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:intl/intl.dart';
+
+import 'package:flutter_app2/modules/hitung-bungamu/components/Result.dart';
+import 'package:flutter_app2/utils/ThousandSeparator.dart';
 
 class FormHitungBunga extends StatefulWidget {
   @override
@@ -11,7 +14,7 @@ class FormHitungBunga extends StatefulWidget {
 
 class _FormHitungBungaState extends State<FormHitungBunga> {
   GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  TextEditingController nominalController = MoneyMaskedTextController();
+  TextEditingController nominalController = TextEditingController();
   TextEditingController bungaController = TextEditingController();
   TextEditingController durasiController = TextEditingController();
 
@@ -55,6 +58,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
+              inputFormatters: [ThousandSeparator()],
               validators: [
                 FormBuilderValidators.required(errorText: 'harus terisi'),
                 FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
@@ -174,6 +178,24 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                       if (validateAndSave()) {
                         setState(() {
                           _isLoading = true;
+                          sumInterest(
+                            double.parse(nominalController.text.replaceAll(new RegExp(r'(\,)'), '')),
+                            double.parse(bungaController.text),
+                            int.parse(durasiController.text),
+                          ).then((value) {
+                            _isLoading = false;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (ctx) => ResultHitungBungamu(
+                                  nominal: nominalController.text,
+                                  interest: bungaController.text,
+                                  profit: NumberFormat("#,##0.##").format(value),
+                                  days: durasiController.text,
+                                ),
+                              ),
+                            );
+                          });
                         });
                       }
                     }
@@ -195,5 +217,9 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
     } else {
       return false;
     }
+  }
+
+  Future<double> sumInterest(double nominal, double interest, int days) async {
+    return nominal * interest * days / 36500;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app2/widgets/category_dart.dart';
+import 'package:flutter_app2/utils/category_dart.dart';
 
 class CardMenuNominalTujuan extends StatelessWidget {
   @override

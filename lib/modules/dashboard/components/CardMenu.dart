@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app2/modules/cek-investasi/CekInvestasi.dart';
 import 'package:flutter_app2/modules/hitung-bungamu/HitungBungamu.dart';
 import 'package:flutter_app2/modules/yuk-nabung/YukNabung.dart';
-import 'package:flutter_app2/widgets/category_dart.dart';
+import 'package:flutter_app2/utils/category_dart.dart';
 
 class CardMenu extends StatelessWidget {
   @override

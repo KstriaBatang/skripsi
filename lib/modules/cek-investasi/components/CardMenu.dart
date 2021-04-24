@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app2/modules/search-by-category/SearchByCategory.dart';
 import 'package:flutter_app2/modules/search-by-name/SearchByName.dart';
 
-import 'package:flutter_app2/widgets/category_dart.dart';
+import 'package:flutter_app2/utils/category_dart.dart';
 
 class CardMenu extends StatelessWidget {
   @override

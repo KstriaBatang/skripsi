@@ -43,7 +43,7 @@ class ListBank extends StatelessWidget {
               children: [
                 Text(bankName),
                 Spacer(),
-                Image.asset(
+                Image.network(
                   pict,
                   width: 50,
                   height: 50,

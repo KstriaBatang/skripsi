@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/modules/nominal-tujuan/NomimalTujuan.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:flutter_app2/utils/ThousandSeparator.dart';
 
 class FormYukNabung extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class FormYukNabung extends StatefulWidget {
 
 class _ForHYukNabungState extends State<FormYukNabung> {
   final GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  final TextEditingController nominalController = MoneyMaskedTextController();
+  final TextEditingController nominalController = TextEditingController();
   final TextEditingController pendapatanBersihController = TextEditingController();
 
   bool _isLoading = false;
@@ -56,6 +56,7 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                   ),
                 ),
               ),
+              inputFormatters: [ThousandSeparator()],
               validators: [
                 FormBuilderValidators.required(errorText: 'harus terisi'),
                 FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
