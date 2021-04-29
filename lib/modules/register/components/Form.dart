@@ -56,7 +56,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'first name',
+                  name: 'first name',
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
                   controller: firstNameController,
@@ -78,7 +78,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -87,7 +87,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'last name',
+                  name: 'last name',
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
                   controller: lastNameController,
@@ -109,7 +109,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -118,7 +118,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderRadioGroup(
-                  attribute: 'jenis kelamin',
+                  name: 'jenis kelamin',
                   options: [
                     FormBuilderFieldOption(
                       child: Text('Laki-Laki'),
@@ -146,7 +146,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                   onChanged: (value) => setState(
                     () => _jenisKelamin = value,
                   ),
@@ -158,7 +158,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'status pekerjaan',
+                  name: 'status pekerjaan',
                   textInputAction: TextInputAction.next,
                   controller: statusPekerjaanController,
                   maxLength: 50,
@@ -179,7 +179,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -188,7 +188,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderDateTimePicker(
-                  attribute: 'tgl lahir',
+                  name: 'tgl lahir',
                   inputType: InputType.date,
                   firstDate: DateTime(1700),
                   lastDate: DateTime(parsedDate.year, 12),
@@ -212,7 +212,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                   onChanged: (value) => setState(
                     () => _birthDate = value,
                   ),
@@ -224,7 +224,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'no hp',
+                  name: 'no hp',
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   controller: noHpController,
@@ -246,7 +246,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+                  validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -255,7 +255,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'email',
+                  name: 'email',
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
@@ -276,10 +276,10 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [
-                    FormBuilderValidators.required(errorText: 'harus terisi'),
-                    FormBuilderValidators.email(errorText: 'email tidak valid'),
-                  ],
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context, errorText: 'harus terisi'),
+                    FormBuilderValidators.email(context, errorText: 'email tidak valid'),
+                  ]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -288,7 +288,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'password',
+                  name: 'password',
                   textInputAction: TextInputAction.next,
                   controller: passwordController,
                   obscureText: !_passVisible,
@@ -317,9 +317,9 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [
-                    FormBuilderValidators.required(errorText: 'harus terisi'),
-                    FormBuilderValidators.minLength(6, errorText: 'minimal 6 karakter'),
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context, errorText: 'harus terisi'),
+                    FormBuilderValidators.minLength(context, 6, errorText: 'minimal 6 karakter'),
                     (value) {
                       Pattern patternSmallChar = r'([a-z])';
                       Pattern patternCapitalChar = r'([A-Z])';
@@ -332,7 +332,7 @@ class _ForHRegisterState extends State<FormRegister> {
                       if (!new RegExp(patternNumber).hasMatch(value)) return "Password harus memiliki 1 angka";
                       return null;
                     }
-                  ],
+                  ]),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -341,7 +341,7 @@ class _ForHRegisterState extends State<FormRegister> {
                 ),
                 SizedBox(height: 5),
                 FormBuilderTextField(
-                  attribute: 'password confirmation',
+                  name: 'password confirmation',
                   textInputAction: TextInputAction.done,
                   controller: passwordConfirmationController,
                   obscureText: !_confirmPassVisible,
@@ -370,13 +370,13 @@ class _ForHRegisterState extends State<FormRegister> {
                       ),
                     ),
                   ),
-                  validators: [
-                    FormBuilderValidators.required(errorText: 'harus terisi'),
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(context, errorText: 'harus terisi'),
                     (val) {
                       if (val != passwordController.text) return 'tidak sama dengan password';
                       return null;
                     },
-                  ],
+                  ]),
                 ),
                 SizedBox(height: 20),
                 Container(

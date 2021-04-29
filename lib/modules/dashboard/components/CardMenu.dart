@@ -19,8 +19,8 @@ class CardMenu extends StatelessWidget {
           CategoryCard(
             title: "Yuk Nabung",
             svgSrc: "assets/icon/investasi.png",
-            height: 100.0,
-            width: 100.0,
+            height: 90.0,
+            width: 90.0,
             press: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => YukNabungPage()));
             },
@@ -28,16 +28,16 @@ class CardMenu extends StatelessWidget {
           CategoryCard(
             title: "Hitung Bunga",
             svgSrc: "assets/icon/profit.png",
-            height: 100.0,
-            width: 100.0,
+            height: 90.0,
+            width: 90.0,
             press: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => HitungBungamuPage()));
             },
           ),
           CategoryCard(
             title: "Cek Tempat Investasimu",
-            height: 100.0,
-            width: 100.0,
+            height: 90.0,
+            width: 90.0,
             svgSrc: "assets/icon/search.png",
             press: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CekInvestasiPage()));
@@ -46,8 +46,8 @@ class CardMenu extends StatelessWidget {
           CategoryCard(
             title: "Belajar Nabung Yuk",
             svgSrc: "assets/icon/education.png",
-            height: 100.0,
-            width: 100.0,
+            height: 90.0,
+            width: 90.0,
           ),
         ],
       ),

@@ -50,7 +50,7 @@ class _FormSearchByNameState extends State<FormSearchByName> {
               ),
               SizedBox(height: 5),
               FormBuilderTextField(
-                attribute: 'nama bank',
+                name: 'nama bank',
                 textInputAction: TextInputAction.search,
                 controller: nameController,
                 decoration: InputDecoration(
@@ -70,7 +70,7 @@ class _FormSearchByNameState extends State<FormSearchByName> {
                     ),
                   ),
                 ),
-                onFieldSubmitted: (value) => doSearch(value),
+                onSubmitted: (value) => doSearch(value),
               ),
               SizedBox(height: 15),
               _isLoading

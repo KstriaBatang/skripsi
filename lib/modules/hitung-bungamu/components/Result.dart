@@ -25,7 +25,7 @@ class ResultHitungBungamu extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            height: size.height * .35,
+            height: size.height * .33,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [

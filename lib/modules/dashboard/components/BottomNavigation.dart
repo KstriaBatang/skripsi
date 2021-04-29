@@ -13,20 +13,20 @@ class BottomNavigationNavbar extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              Icon(Icons.home_outlined, size: 32),
-              Text("Home"),
+              Icon(Icons.home_outlined, size: 27),
+              Text("Home", style: TextStyle(fontSize: 12)),
             ],
           ),
           Column(
             children: <Widget>[
-              Icon(Icons.person_outline, size: 32),
-              Text("Profile"),
+              Icon(Icons.person_outline, size: 27),
+              Text("Profile", style: TextStyle(fontSize: 12)),
             ],
           ),
           Column(
             children: <Widget>[
-              Icon(Icons.settings_outlined, size: 32),
-              Text("Settings"),
+              Icon(Icons.settings_outlined, size: 27),
+              Text("Settings", style: TextStyle(fontSize: 12)),
             ],
           ),
         ],

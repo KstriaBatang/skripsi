@@ -36,7 +36,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'nominal',
+              name: 'nominal',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: nominalController,
@@ -59,10 +59,10 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                 ),
               ),
               inputFormatters: [ThousandSeparator()],
-              validators: [
-                FormBuilderValidators.required(errorText: 'harus terisi'),
-                FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
-              ],
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.required(context, errorText: 'harus terisi'),
+                FormBuilderValidators.min(context, 1, errorText: 'harus lebih besar dari 1'),
+              ]),
             ),
             SizedBox(height: 15),
             Text(
@@ -71,7 +71,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'bunga',
+              name: 'bunga',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: bungaController,
@@ -93,7 +93,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
-              validators: [FormBuilderValidators.required(errorText: 'harus terisi')],
+              validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
             ),
             SizedBox(height: 15),
             Text(
@@ -102,7 +102,7 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'durasi',
+              name: 'durasi',
               textInputAction: TextInputAction.send,
               keyboardType: TextInputType.number,
               controller: durasiController,
@@ -123,10 +123,10 @@ class _FormHitungBungaState extends State<FormHitungBunga> {
                   ),
                 ),
               ),
-              validators: [
-                FormBuilderValidators.required(errorText: 'harus terisi'),
-                FormBuilderValidators.min(1, errorText: 'harus lebih besar dari 1'),
-              ],
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.required(context, errorText: 'harus terisi'),
+                FormBuilderValidators.min(context, 1, errorText: 'harus lebih besar dari 1'),
+              ]),
             ),
             SizedBox(height: 20),
             Container(

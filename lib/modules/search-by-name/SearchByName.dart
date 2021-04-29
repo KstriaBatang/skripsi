@@ -10,7 +10,7 @@ class SearchByNamePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavigationNavbar(),
       body: Stack(
         children: [

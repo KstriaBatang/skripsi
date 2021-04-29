@@ -35,7 +35,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'min deposit',
+              name: 'min deposit',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: minDepositController,
@@ -66,7 +66,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'kisaran bunga',
+              name: 'kisaran bunga',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: kisaranBungaController,
@@ -96,7 +96,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              attribute: 'gol buku',
+              name: 'gol buku',
               textInputAction: TextInputAction.send,
               keyboardType: TextInputType.number,
               controller: golBukuController,
