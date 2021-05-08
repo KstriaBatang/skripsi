@@ -13,11 +13,11 @@ class FormSearchByCategory extends StatefulWidget {
 
 class _FormSearchByCategoryState extends State<FormSearchByCategory> {
   final GlobalKey<FormBuilderState> globalFormKey = new GlobalKey<FormBuilderState>();
-  final TextEditingController minDepositController = TextEditingController();
-  final TextEditingController kisaranBungaController = TextEditingController();
-  final TextEditingController golBukuController = TextEditingController();
 
   bool _isLoading = false;
+  String _nominal;
+  int _golBuku = -1;
+  String _kisaranBunga;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,21 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             SizedBox(height: 5),
-            FormBuilderTextField(
-              name: 'min deposit',
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.number,
-              controller: minDepositController,
+            FormBuilderRadioGroup(
+              name: 'jenis kelamin',
+              options: [
+                FormBuilderFieldOption(
+                  child: Text('>= 10jt'),
+                  value: '> 10',
+                ),
+                FormBuilderFieldOption(
+                  child: Text('< 10jt'),
+                  value: '< 10',
+                )
+              ],
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
-                prefixText: 'Rp. ',
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -57,7 +63,10 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
                   ),
                 ),
               ),
-              inputFormatters: [ThousandSeparator()],
+              validator: FormBuilderValidators.compose([FormBuilderValidators.required(context, errorText: 'harus terisi')]),
+              onChanged: (value) => setState(
+                () => _nominal = value,
+              ),
             ),
             SizedBox(height: 15),
             Text(
@@ -65,59 +74,87 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
               style: TextStyle(fontSize: 17),
             ),
             SizedBox(height: 5),
-            FormBuilderTextField(
-              name: 'kisaran bunga',
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.number,
-              controller: kisaranBungaController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                suffixText: '%',
-                contentPadding: EdgeInsets.all(10),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                    width: 1.0,
+            FormBuilderDropdown(
+                name: 'kisaran bunga',
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black26,
+                      width: 1.0,
+                    ),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black26,
-                    width: 1.0,
+                onChanged: (value) => setState(
+                      () => _kisaranBunga = value,
+                    ),
+                initialValue: '',
+                items: [
+                  DropdownMenuItem(
+                    child: Text('Pilih Satu'),
+                    value: '',
                   ),
-                ),
-              ),
-            ),
+                  DropdownMenuItem(
+                    child: Text('> 3%'),
+                    value: '>3',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('3 - 5%'),
+                    value: '3-5',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('<5%'),
+                    value: '<5',
+                  ),
+                ]),
             SizedBox(height: 15),
             Text(
               'Golongan Buku :',
               style: TextStyle(fontSize: 17),
             ),
             SizedBox(height: 5),
-            FormBuilderTextField(
-              name: 'gol buku',
-              textInputAction: TextInputAction.send,
-              keyboardType: TextInputType.number,
-              controller: golBukuController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: EdgeInsets.all(10),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                    width: 1.0,
+            FormBuilderDropdown(
+                name: 'gol buku',
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.all(10),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black26,
+                      width: 1.0,
+                    ),
                   ),
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black26,
-                    width: 1.0,
-                  ),
-                ),
-              ),
-            ),
+                onChanged: (value) => setState(
+                      () => _golBuku = value,
+                    ),
+                initialValue: -1,
+                items: [-1, 1, 2, 3, 4]
+                    .map((val) => val > 0
+                        ? DropdownMenuItem(
+                            child: Text('Buku $val'),
+                            value: val,
+                          )
+                        : DropdownMenuItem(
+                            child: Text('Pilih Satu'),
+                            value: -1,
+                          ))
+                    .toList()),
             SizedBox(height: 20),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -137,7 +174,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
                       color: Colors.transparent,
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: 10.0,
+                      vertical: 7.0,
                       horizontal: 15.0,
                     ),
                     child: Align(
@@ -178,9 +215,9 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
                           context,
                           MaterialPageRoute(
                             builder: (ctx) => ListSearch(
-                              bunga: kisaranBungaController.text,
-                              golBuku: golBukuController.text,
-                              minDeposit: minDepositController.text,
+                              bunga: _kisaranBunga,
+                              golBuku: _golBuku.toString(),
+                              minDeposit: _nominal,
                             ),
                           ),
                         );
@@ -200,7 +237,7 @@ class _FormSearchByCategoryState extends State<FormSearchByCategory> {
   }
 
   bool validateAndSave() {
-    if (minDepositController.text.isEmpty && kisaranBungaController.text.isEmpty && golBukuController.text.isEmpty) {
+    if (_nominal == null && _kisaranBunga == null && _golBuku == -1) {
       return false;
     }
     return true;

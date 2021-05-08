@@ -64,19 +64,19 @@ class _ForHYukNabungState extends State<FormYukNabung> {
             ),
             SizedBox(height: 15),
             Text(
-              'Bunga :',
+              'Pendapatan Per Bulan :',
               style: TextStyle(fontSize: 17),
             ),
             SizedBox(height: 5),
             FormBuilderTextField(
-              name: 'bunga',
+              name: 'monthly revenue',
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               controller: pendapatanBersihController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
-                suffixText: '%',
+                prefixText: 'Rp. ',
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -91,6 +91,7 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                   ),
                 ),
               ),
+              inputFormatters: [ThousandSeparator()],
               validator: FormBuilderValidators.compose([
                 FormBuilderValidators.required(context, errorText: 'harus terisi'),
                 FormBuilderValidators.min(context, 1, errorText: 'harus lebih besar dari 1'),
@@ -115,7 +116,7 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                       color: Colors.transparent,
                     ),
                     padding: EdgeInsets.symmetric(
-                      vertical: 10.0,
+                      vertical: 7.0,
                       horizontal: 15.0,
                     ),
                     child: Align(
@@ -143,11 +144,26 @@ class _ForHYukNabungState extends State<FormYukNabung> {
                   ),
                   onTap: () async {
                     if (!_isLoading) {
+                      setState(() {
+                        _isLoading = true;
+                      });
                       if (validateAndSave()) {
                         setState(() {
-                          _isLoading = true;
+                          _isLoading = false;
                         });
-                        Navigator.push(context, MaterialPageRoute(builder: (ctx) => NomimalTujuanPage()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (ctx) => NominalTujuanPage(
+                              monthlyRevenue: int.parse(pendapatanBersihController.text.replaceAll(new RegExp(r'(\,)'), '')),
+                              nomimalTujuan: int.parse(nominalController.text.replaceAll(new RegExp(r'(\,)'), '')),
+                            ),
+                          ),
+                        );
+                      } else {
+                        setState(() {
+                          _isLoading = false;
+                        });
                       }
                     }
                   },
